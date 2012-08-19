@@ -1,0 +1,29 @@
+<table class="buttons">
+	<tr>
+		<td id="button1">登录</td>
+	</tr>
+</table>
+<br>
+<div class="plaintext">如果你还没有注册，点击<a href="javascript:MainPage_ChangeSection('usersec2')">这里</a>注册，只需花 1 分钟哦。</div>
+<br>
+<div class="subtitle">登录</div>
+<form>
+	<table class="zbytable1" width="250">
+		<tr>
+			<td width="30%">学号</td>
+			<td width="70%"><input type="text" id="username" class="zbyinput" /></td>
+		</tr>
+		<tr>
+			<td>密码</td>
+			<td><input type="password" id="password" class="zbyinput" onkeydown="ShowLoginForm_CheckSubmit(event)" /></td>
+		</tr>
+		<tr>
+			<td>记住我</td>
+			<td><input type="checkbox" id="rememberme" />在一年内记住我</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="button" id="submit" onclick="ShowLoginForm_Submit()" value="登录" /></td>
+		</tr>
+	</table>
+</form>

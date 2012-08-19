@@ -1,0 +1,276 @@
+body{
+	overflow-y:scroll;
+	+overflow-y:auto;
+}
+
+.hiddenobject{
+	display: none;
+}
+
+.clear{
+	clear: both;
+}
+
+.main{
+	width: 940px;
+	margin: 0 auto;
+}
+
+.maintitle{
+	font-size: 28px;
+	font-family: "Courier New", Courier, monospace;
+	padding:0px 0px 0px 4px;
+}
+
+.maintitleline{
+	height:1px;
+	border:none;
+	background: #000000;
+	color: #000000;
+}
+
+.subtitle{
+	font-size: 16px;
+	font-weight: bold;
+	padding:0px 0px 0px 4px;
+	height: 22px;
+}
+
+.zbyinput{
+	width: 90%
+}
+	
+.usertable{
+	font-size: 12px;
+	border: 1px;
+	border-spacing: 6px 0px;
+	text-align: center;
+	font-family: "新宋体", "宋体";
+	float: right;
+}
+.usertable td{
+	padding: 8px;
+	cursor: pointer;
+	background-color: #baeeff;
+}
+.usertable td:hover{
+	background-color: #92e4ff;
+}
+
+.sectiontable{
+	font-size: 12px;
+	border: 1px;
+	border-spacing: 6px 0px;
+	table-layout: fixed;
+	text-align: center;
+	font-family: "新宋体", "宋体";
+	float: left;
+}
+.sectiontable td{
+	padding: 8px;
+	width: 65px;
+	cursor: pointer;
+	background-color: #ddffba;
+}
+.sectiontable td:hover{
+	background-color: #b5ff66;
+}
+
+.infotable{
+	font-size: 12px;
+	border: 1px;
+	border-spacing: 6px 0px;
+	table-layout: fixed;
+	text-align: center;
+	font-family: "新宋体", "宋体";
+}
+.infotable td{
+	padding: 8px;
+	background-color: #fffaba;
+}
+.infotable td:hover{
+	background-color: #fff466;
+}
+
+.buttons {
+	font-size: 12px;
+	border: 1px;
+	border-spacing: 6px 0px;
+	table-layout: fixed;
+	text-align: center;
+	font-family: "新宋体", "宋体";
+}
+.buttons td{
+	padding: 8px;
+	width: 65px;
+	cursor: pointer;
+	background-color: #baeeff;
+}
+.buttons td:hover{
+	background-color: #92e4ff;
+}
+
+.plaintextright {
+	font-size: 12px;
+	text-align: right;
+}
+.plaintext {
+	font-size: 12px;
+}
+
+.redtext {
+	font-size: 12px;
+	color: #FF0000;
+}
+
+.greentext {
+	font-size: 12px;
+	color: #008000;
+}
+
+.pageimagelist{
+	width: 100%;
+	padding: 0px 0px 0px 0px;
+}
+
+.pageimagelist li{
+	list-style: none;
+	float: left;
+	font-size: 12px;	
+	font-family: "新宋体", "宋体";
+	padding: 1px 1px 1px 1px;
+	height: 245px;
+}
+
+.pageimagelist img{
+	width: 150px;
+	border: 1px #000000 solid;
+}
+
+.zbytable1 {
+	font-size: 12px;
+	padding: 0px;
+	border: 0px;
+	border-spacing: 1px;
+	text-align: left;
+	font-family: "新宋体", "宋体";
+}
+.zbytable1 table {
+	table-layout: fixed;
+}
+.zbytable1 th {
+	font-weight: bold;
+	text-align: left;
+	padding: 0px 0px 0px 4px;
+	height: 22px;
+	background-color: #ffffff;
+
+}
+.zbytable1 td{
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0px 0px 0px 4px;
+	height: 22px;
+}
+.zbytable1 tr:nth-child(odd){
+	background-color: #caff92;
+}
+.zbytable1 tr:nth-child(even){
+	background-color: #ddffba;
+}
+.zbytable1 tr:hover{
+	background-color: #b5ff66;
+}
+.oddr1{
+	background-color: #caff92;
+}
+.evenr1{
+	background-color: #ddffba;
+}
+
+.zbytable2 {
+	font-size: 12px;
+	padding: 0px;
+	border: 0px;
+	border-spacing: 1px;
+	text-align: left;
+	font-family: "新宋体", "宋体";
+}
+.zbytable2 table {
+	table-layout: fixed;
+}
+.zbytable2 th {
+	font-weight: bold;
+	text-align: left;
+	padding: 0px 0px 0px 4px;
+	height: 22px;
+	background-color: #ffffff;
+
+}
+.zbytable2 td{
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0px 0px 0px 4px;
+	height: 22px;
+}
+.zbytable2 tr:nth-child(odd){
+	background-color: #92e4ff;
+}
+.zbytable2 tr:nth-child(even){
+	background-color: #baeeff;
+}
+.zbytable2 tr:hover{
+	background-color: #66d9ff;
+}
+.oddr2{
+	background-color: #92e4ff;
+}
+.evenr2{
+	background-color: #baeeff;
+}
+
+.zbytable3 {
+	font-size: 12px;
+	padding: 0px;
+	border: 0px;
+	border-spacing: 1px;
+	text-align: left;
+	font-family: "新宋体", "宋体";
+}
+.zbytable3 table {
+	table-layout: fixed;
+}
+.zbytable3 th {
+	font-weight: bold;
+	text-align: left;
+	padding: 0px 0px 0px 4px;
+	height: 22px;
+	background-color: #ffffff;
+
+}
+.zbytable3 td{
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0px 0px 0px 4px;
+	height: 22px;
+}
+.zbytable3 tr:nth-child(odd){
+	background-color: #fff791;
+}
+.zbytable3 tr:nth-child(even){
+	background-color: #fffaba;
+}
+.zbytable3 tr:hover{
+	background-color: #fff466;
+}
+.oddr3{
+	background-color: #fff791;
+}
+.evenr3{
+	background-color: #fffaba;
+}
+
+

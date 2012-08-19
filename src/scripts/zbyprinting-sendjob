@@ -1,0 +1,57 @@
+#!/usr/bin/expect
+# shell script for sending job
+# ver 0.1
+# copyright zby 2012. all rights reserved
+
+# check args
+if { $argc != 7 } {
+	send_user " usage:\n zbyprinting-sendjob host printer duplex username password jobname filename\n"
+#	                                         [0]  [1]     [2]    [3]      [4]      [5]     [6]
+	exit 3
+}
+
+# set timeout
+set timeout 5
+
+# check if we are using duplex
+if { [lindex $argv 2] == 0 } {
+	# one sided
+	# run & get pid
+	send_user " one-sided\n"
+	set pid [spawn lp -U [lindex $argv 3] -d [lindex $argv 1] -h [lindex $argv 0] -o sides=one-sided -t [lindex $argv 5] [lindex $argv 6]]
+}
+
+if { [lindex $argv 2] == 1 } {
+	# two sided long edge
+	# run & get pid
+	send_user " two sided long edge\n"
+	set pid [spawn lp -U [lindex $argv 3] -d [lindex $argv 1] -h [lindex $argv 0] -o sides=two-sided-long-edge -t [lindex $argv 5] [lindex $argv 6]]
+}
+
+if { [lindex $argv 2] == 2 } {
+	# two sided short edge
+	# run & get pid
+	send_user " two sided short edge\n"
+	set pid [spawn lp -U [lindex $argv 3] -d [lindex $argv 1] -h [lindex $argv 0] -o sides=two-sided-short-edge -t [lindex $argv 5] [lindex $argv 6]]
+}
+
+
+# input the password
+expect "[lindex $argv 3]"
+send "[lindex $argv 4]\r"
+
+# check command result
+expect {
+	eof {
+		# return exit status
+		catch wait result
+		exit [lindex $result 3]
+	}
+
+	timeout {
+		# timeout (wrong password)
+		exec kill $pid
+		exit 2
+	}
+}
+

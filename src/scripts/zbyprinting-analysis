@@ -1,0 +1,43 @@
+#!/bin/bash
+MYSQLUSER="root"
+MYSQLPASS="123456"
+
+umask 0022
+
+PDFNAME=${1}
+PDFINFO=`pdfinfo ${PDFNAME}.pdf`
+TOTALPAGES=`echo "${PDFINFO}" | grep "^Pages:.*[0-9]*$" | sed "s/[^0-9]//g"`
+THISJOB=`echo ${PDFNAME} | grep -o "[0-9]*$"`
+JOBINFO=`cat /var/log/cups/page_log | grep -m1 "^${THISJOB} [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]* .*$"`
+
+DOCTITLE=`echo ${JOBINFO} | sed "s/^${THISJOB} [0-9]*\\.[0-9]*\\.[0-9]*\\.[0-9]* //g"`
+DOCTITLE=`echo ${DOCTITLE} | sed "s/\\\\\\\\/\\\\\\\\\\\\\\\\/g;s/'/\\\\\\\\'/g;s/\\\\\\"/\\\\\\\\\\"/g"`
+
+if [[ ${DOCTITLE} == "" ]]
+then
+	DOCTITLE="未命名"
+fi
+
+IP=`echo ${JOBINFO} | cut -d" " -f2`
+IP=$[(`echo ${IP} | cut -d. -f1`<<24)+(`echo ${IP} | cut -d. -f2`<<16)+(`echo ${IP} | cut -d. -f3`<<8)+`echo ${IP} | cut -d. -f4`]
+
+if [[ `echo "${PDFINFO}" | grep "^Page size:.*(A4)$"` != "" ]]
+then 
+	ID=`mysql -u${MYSQLUSER} -p${MYSQLPASS} -Dzbyprinting -e "INSERT INTO jobs (realid, userid, ip, name, output, time, status, pages, duplex, fee) VALUES (${THISJOB}, 0, ${IP}, '${DOCTITLE}', 0, now(), 5, ${TOTALPAGES}, 0, 0);SELECT LAST_INSERT_ID();" | grep "^[0-9]*$"`
+	gs -q -dPARANOIDSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=0 -sDEVICE=pnggray -r300x300 -sOutputFile=${PDFNAME}_page%d.png ${PDFNAME}.pdf
+	FILELIST=`ls ${PDFNAME}_page*.png`
+	ANALYSIS_RESULT=`echo "${FILELIST}" | /usr/local/bin/zbyprinting-analysis-PNG`
+	MYSQLQUERY="INSERT INTO jobs_analysis VALUES "
+	for FILE in ${FILELIST}
+	do
+		PAGE=`echo ${FILE##*/} | sed "s/^job_[0-9]*_page//g;s/\\\\.png//g"`
+		PAGERESULT=`echo "${ANALYSIS_RESULT}" | sed -n "1s/^0\\.//gp"`
+		ANALYSIS_RESULT=`echo "${ANALYSIS_RESULT}" | sed -n "2,\\$p"`
+		MYSQLQUERY="${MYSQLQUERY}(${ID},${PAGE},${PAGERESULT}),"
+	done
+	MYSQLQUERY=`echo ${MYSQLQUERY} | sed "s/,$/;/g"`
+#	rm ${PDFNAME}_page*.png
+	mysql -u${MYSQLUSER} -p${MYSQLPASS} -Dzbyprinting -e "UPDATE jobs SET status = 1 WHERE id = ${ID};${MYSQLQUERY}"
+else
+	mysql -u${MYSQLUSER} -p${MYSQLPASS} -Dzbyprinting -e "INSERT INTO jobs (realid, userid, ip, name, output, time, status, pages, duplex, fee) VALUES (0, 0, ${IP}, '${DOCTITLE}', 0, now(), 6, 0, 0, 0);"
+fi

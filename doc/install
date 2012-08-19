@@ -1,0 +1,40 @@
+Zby's Printing Service
+Install Guide
+
+=== Main Server ===
+[htdocs]
+/src/htdocs/... -> /var/www/...
+
+[scripts]
+/src/scripts/zbyprinting-analysis --> /usr/local/bin/zbyprinting-analysis
+/src/scripts/zbyprinting-cups-pdf --> /usr/local/bin/zbyprinting-cups-pdf
+/src/scripts/zbyprinting-sendjob --> /usr/local/bin/zbyprinting-sendjob
+
+[programs]
+/src/programs/png-analysis.cpp --> zbyprinting-analysis-PNG
+
+[cupsd.conf]
+DefaultAuthType Basic
+WebInterface Yes
+ServerAlias *
+PageLogFormat %j %{job-originating-host-name} %{job-name}
+LogFilePerm 0644
+
+[cups-pdf.conf]
+Out /var/spool/cups-pdf
+AnonUMask 0022
+PostProcessing /usr/local/bin/zbyprinting-cups-pdf
+
+==== Print Server ===
+[programs]
+/src/programs/zbynotify.c --> /usr/lib/cups/notifier/zby
+
+[cupsd.conf]
+DefaultAuthType Digist
+<Location />
+AuthType Default
+</Location>
+
+[lppasswd]
+lppasswd -a username
+

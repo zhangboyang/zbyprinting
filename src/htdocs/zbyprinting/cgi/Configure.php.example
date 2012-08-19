@@ -1,0 +1,13 @@
+<?php
+/* constant*/
+$PAGE_COUNT = 30;
+$PAPER_ERROR_LIMIT = 15; // in minutes
+$CONFIRM_LIMIT = 15; // in minutes
+$LOGIN_LIMIT = 7200; // in seconds
+$ADMIN_UID = 1425312;
+
+$MYSQL_HOST = "localhost";
+$MYSQL_USERNAME = "root";
+$MYSQL_PASSWORD = "123456";
+$MYSQL_DBNAME = "zbyprinting";
+?>

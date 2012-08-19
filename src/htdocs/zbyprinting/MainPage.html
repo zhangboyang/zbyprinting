@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<script type="text/javascript" src="scripts/jQuery.js"></script>
+		<script type="text/javascript" src="scripts/MainPage.js"></script>
+		<script type="text/javascript" src="scripts/ShowStatus.js"></script>
+		<script type="text/javascript" src="scripts/ShowUserInfo.js"></script>
+		<script type="text/javascript" src="scripts/ShowAnnouncements.js"></script>
+		<script type="text/javascript" src="scripts/ShowHelp.js"></script>
+		<script type="text/javascript" src="scripts/ShowRegisterForm.js"></script>
+		<script type="text/javascript" src="scripts/ShowLoginForm.js"></script>
+		<script type="text/javascript" src="scripts/LoginButtons.js"></script>
+		<script type="text/javascript" src="scripts/JobConfirm.js"></script>
+		
+		<title>Zby's Printing Service</title>
+		<link type="text/css" href="style/Common.css" rel="stylesheet" />
+	</head>
+	<body>
+		<br>
+		<div class="main">
+			<div class="maintitle">Zby's Printing Service v0.1 alpha1</div>
+			<hr class="maintitleline">
+			<div>
+				<table class="sectiontable">
+					<tr>
+						<td id="sec1" onclick="MainPage_ChangeSection('sec1')">作业状态</td>
+						<td id="sec2" onclick="MainPage_ChangeSection('sec2')">我的用户</td>
+						<td id="sec3" onclick="MainPage_ChangeSection('sec3')">系统公告</td>
+						<td id="sec4" onclick="MainPage_ChangeSection('sec4')">帮助</td>
+					</tr>
+				</table>
+			</div>
+			<div id="usersection">
+				<table class="usertable">
+					<tr>
+						<td>加载中</td>
+				</table>
+			</div>
+			<div class="clear"></div>
+			<hr class="maintitleline">
+			<div id="pagecontents">
+				<table class="infotable" width="940" cellspacing="1">
+					<tr>
+						<td width="100%">加载中</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script type="text/javascript">
+			MainPage_PageReady();
+		</script>
+	</body>
+</html>
+
