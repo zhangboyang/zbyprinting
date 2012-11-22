@@ -23,7 +23,7 @@
 		die("USEDUSERNAME");
 	$password = md5($_POST['password']);
 	
-	mysql_query("INSERT INTO users VALUE (" . $uid . ", '" . $password . "', '" . mysql_real_escape_string($_POST['name']) . "', NULL, NULL, NULL, NULL, now())");
+	mysql_query("INSERT INTO users VALUE (" . $uid . ", '" . $password . "', '" . mysql_real_escape_string($_POST['realname']) . "', NULL, NULL, NULL, NULL, now())");
 	mysql_query("INSERT INTO wallets VALUE (" . $uid . ", 0, NULL)");
 	UpdateCounter("total-user-count", 1);
 	echo "REGSUCCESS";

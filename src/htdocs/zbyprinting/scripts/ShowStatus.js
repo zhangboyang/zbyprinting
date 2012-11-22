@@ -1,83 +1,45 @@
-var ShowStatus_orgHTML1, ShowStatus_orgHTML2, ShowStatus_orgHTML3;
-var ShowStatus_isShowMyJobs, ShowStatus_isShowAllJobs, ShowStatus_isShowPrintersStatus;
+var ShowStatus_Showing;
 var ShowStatus_My1Page, ShowStatus_My2Page, ShowStatus_AllPage;
-function ShowStatus_getOriginalInnerHTML()
+function ShowStatus_GetOriginalInnerHTML()
 {
-	ShowStatus_orgHTML1 = document.getElementById("table1").innerHTML;
-	ShowStatus_orgHTML2 = document.getElementById("table2").innerHTML;
-	ShowStatus_orgHTML3 = document.getElementById("table3").innerHTML;
-	ShowStatus_orgHTML4 = document.getElementById("table4").innerHTML;
+	ShowStatus_orgHTML1 = $("#table1").html();
+	ShowStatus_orgHTML2 = $("#table2").html();
+	ShowStatus_orgHTML3 = $("#table3").html();
+	ShowStatus_orgHTML4 = $("#table4").html();
 }
-function ShowStatus_setLoading(id)
+function ShowStatus_SetLoading(id)
 {
 	switch(id)
 	{
 		case "table1":
-			document.getElementById(id).innerHTML = ShowStatus_orgHTML1;
+			$("#table1").html(ShowStatus_orgHTML1);
 			break;
 		case "table2":
-			document.getElementById(id).innerHTML = ShowStatus_orgHTML2;
+			$("#table2").html(ShowStatus_orgHTML2);
 			break;
 		case "table3":
-			document.getElementById(id).innerHTML = ShowStatus_orgHTML3;
+			$("#table3").html(ShowStatus_orgHTML3);
 			break;
 		case "table4":
-			document.getElementById(id).innerHTML = ShowStatus_orgHTML4;
+			$("#table4").html(ShowStatus_orgHTML4);
 	}
 	CommonLib_RefreshTableStyle();
 }
 function ShowStatus_SendXMLHttpResuest(id, url, page)
 {
-	var xmlhttp, tablefoot;
-	tablefoot = "<div class=\"plaintextright\">第 "+page+" 页 <a href=\"javascript:ShowStatus_TurnPage('" + id + "', 2)\">第一页</a> <a href=\"javascript:ShowStatus_TurnPage('" + id + "', -1)\">上一页</a> <a href=\"javascript:ShowStatus_TurnPage('" + id + "', 1)\">下一页</a> <a href=\"javascript:ShowStatus_TurnPage('" + id + "', 0)\">刷新</a></div>";
-	if(!window.ActiveXObject)
-		xmlhttp = new XMLHttpRequest();
-	else
-		xmlhttp = new ActiveXObject("MSXML2.XMLHTTP");
-	xmlhttp.onreadystatechange = function()
-	{
-		if(xmlhttp.readyState == 4)
+	var tablefoot = "<div class=\"plaintextright\">第 "+page+" 页 <a href=\"javascript:ShowStatus_TurnPage('" + id + "', 2)\">第一页</a> <a href=\"javascript:ShowStatus_TurnPage('" + id + "', -1)\">上一页</a> <a href=\"javascript:ShowStatus_TurnPage('" + id + "', 1)\">下一页</a> <a href=\"javascript:ShowStatus_TurnPage('" + id + "', 0)\">刷新</a></div>";
+	$.get(url,
+		function (response, status, xhr)
 		{
-			if(xmlhttp.status == 200)
-			{
-				if(MainPage_ThisID == "sec1" && document.getElementById(id))
-					document.getElementById(id).innerHTML = tablefoot + xmlhttp.responseText + tablefoot;
-			}
-			else
-				document.getElementById(id).innerHTML = "<table width='940' cellspacing='1'><tr><td width='100%'>内部错误，请重新刷新页面。错误代码: XMLHTTP.readyState=" + xmlhttp.readyState + " XMLHTTP.status=" + xmlhttp.status + "</td></tr></table>";
+			if (MainPage_ThisID == "sec1")
+				$("#" + id).html(tablefoot + response + tablefoot);
+			CommonLib_RefreshTableStyle();
 		}
-		CommonLib_RefreshTableStyle();
-	}
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
-}
-function ShowStatus_RefreshPrintersStatus(id)
-{
-	var xmlhttp;
-	if(!window.ActiveXObject)
-		xmlhttp = new XMLHttpRequest();
-	else
-		xmlhttp = new ActiveXObject("MSXML2.XMLHTTP");
-	xmlhttp.onreadystatechange = function()
-	{
-		if(xmlhttp.readyState == 4)
-		{
-			if(xmlhttp.status == 200)
-			{
-				if(MainPage_ThisID == "sec1" && document.getElementById(id))
-					document.getElementById(id).innerHTML = xmlhttp.responseText;
-			}
-			else
-				document.getElementById(id).innerHTML = "<table width='940' cellspacing='1'><tr><td width='100%'>内部错误，请重新刷新页面。错误代码: XMLHTTP.readyState=" + xmlhttp.readyState + " XMLHTTP.status=" + xmlhttp.status + "</td></tr></table>";
-		}
-		CommonLib_RefreshTableStyle();
-	}
-	xmlhttp.open("GET", "cgi/GetPrintersStatus.php?rand=" + Math.random(), true);
-	xmlhttp.send();
+	);
 }
 function ShowStatus_TurnPage(id, f)
 {
-	ShowStatus_setLoading(id);
+	ShowStatus_SetLoading(id);
 	switch(id)
 	{
 		case "table1":
@@ -99,83 +61,58 @@ function ShowStatus_TurnPage(id, f)
 			ShowStatus_SendXMLHttpResuest("table3", "cgi/GetJobsStatus.php?type=all&page=" + ShowStatus_AllPage + "&rand=" + Math.random(), ShowStatus_AllPage);
 	}
 }
-function ShowStatus_DoRefreshContents()
-{
-	if(ShowStatus_isShowMyJobs == 1)
-	{
-		ShowStatus_TurnPage("table1", 0);
-		ShowStatus_TurnPage("table2", 0);
-	}
-	if(ShowStatus_isShowAllJobs == 1)
-		ShowStatus_TurnPage("table3", 0);
-	if(ShowStatus_isShowPrintersStatus == 1)
-	{
-		ShowStatus_setLoading("table4");
-		ShowStatus_RefreshPrintersStatus("table4");
-	}
-	CommonLib_RefreshTableStyle();
-}
-function ShowStatus_ResetButtonStyle()
-{
-	document.getElementById("button1").style.backgroundColor = "";
-	document.getElementById("button2").style.backgroundColor = "";
-	document.getElementById("button3").style.backgroundColor = "";
-}
 function ShowStatus_ShowMyJobs()
 {
-	ShowStatus_isShowMyJobs = 1;
-	ShowStatus_isShowAllJobs = 0;
-	ShowStatus_isShowPrintersStatus = 0;
-	ShowStatus_ResetButtonStyle();
-	document.getElementById("button1").style.backgroundColor = "#92e4ff";
-	document.getElementById("myjobs").style.display = 'block';
-	document.getElementById("alljobs").style.display = 'none';
-	document.getElementById("printers").style.display = 'none';
-	ShowStatus_DoRefreshContents();
+	ShowStatus_Showing = 1;	
+
+	$("#button1").css("background-color", "#92e4ff");
+	$("#button2, #button3").css("background-color", "");
+	$("#myjobs").show();
+	$("#alljobs, #printers").hide();
+	
+	ShowStatus_TurnPage("table1", 0);
+	ShowStatus_TurnPage("table2", 0);
+	CommonLib_RefreshTableStyle();
 }
 function ShowStatus_ShowAllJobs()
 {
-	ShowStatus_isShowMyJobs = 0;
-	ShowStatus_isShowAllJobs = 1;
-	ShowStatus_isShowPrintersStatus = 0;
-	ShowStatus_ResetButtonStyle();
-	document.getElementById("button2").style.backgroundColor = "#92e4ff";
-	document.getElementById("myjobs").style.display = 'none';
-	document.getElementById("alljobs").style.display = 'block';
-	document.getElementById("printers").style.display = 'none';
-	ShowStatus_DoRefreshContents();
+	ShowStatus_Showing = 2;	
+
+	$("#button2").css("background-color", "#92e4ff");
+	$("#button1, #button3").css("background-color", "");
+	$("#alljobs").show();
+	$("#myjobs, #printers").hide();
+	
+	ShowStatus_TurnPage("table3", 0);
+	CommonLib_RefreshTableStyle();
 }
 function ShowStatus_ShowPrintersStatus()
 {
-	ShowStatus_isShowMyJobs = 0;
-	ShowStatus_isShowAllJobs = 0;
-	ShowStatus_isShowPrintersStatus = 1;
-	ShowStatus_ResetButtonStyle();
-	document.getElementById("button3").style.backgroundColor = "#92e4ff";
-	document.getElementById("myjobs").style.display = 'none';
-	document.getElementById("alljobs").style.display = 'none';
-	document.getElementById("printers").style.display = 'block';
-	ShowStatus_DoRefreshContents();
+	ShowStatus_Showing = 3;
+	
+	$("#button3").css("background-color", "#92e4ff");
+	$("#button1, #button2").css("background-color", "");
+	$("#printers").show();
+	$("#myjobs, #alljobs").hide();
+	
+	ShowStatus_SetLoading("table4");
+	$("#table4").load("cgi/GetPrintersStatus.php?rand=" + Math.random(), CommonLib_RefreshTableStyle);
 }
-function ShowStatus_PageBack()
+function ShowStatus_PageBackReady()
 {
-	if(ShowStatus_isShowMyJobs == 1)
+	if (ShowStatus_Showing == 1)
 		ShowStatus_ShowMyJobs();
-	if(ShowStatus_isShowAllJobs == 1)
+	if (ShowStatus_Showing == 2)
 		ShowStatus_ShowAllJobs();
-	if(ShowStatus_isShowPrintersStatus == 1)
+	if (ShowStatus_Showing == 3)
 		ShowStatus_ShowPrintersStatus();
 }
 function ShowStatus_PageReady()
 {
-	ShowStatus_isShowMyJobs = 0;
-	ShowStatus_isShowAllJobs = 0;
-	ShowStatus_isShowPrintersStatus = 0;
 	ShowStatus_My1Page = 1;
 	ShowStatus_My2Page = 1;
 	ShowStatus_AllPage = 1;
-	
-	CommonLib_RefreshTableStyle();
-	ShowStatus_getOriginalInnerHTML();
+
+	ShowStatus_GetOriginalInnerHTML();
 	ShowStatus_ShowMyJobs();
 }

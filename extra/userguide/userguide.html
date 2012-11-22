@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="../zbyprinting/scripts/jQuery.js"></script>
+		<title>Zby's Printing Service 使用说明</title>
+		<link type="text/css" href="../zbyprinting/style/Common.css" rel="stylesheet" />
+	</head>
+	<body>
+		<br />
+		<div class="main">
+			<div id="pagelisthead"></div>
+			<div id="image"></div>
+			<div id="pagelistfoot"></div>
+		</div>
+		<script type="text/javascript">
+			var ThisPage, TotalPages = 19;
+			function ShowPage(page)
+			{
+				page = parseInt(page);
+				if (page < 1 || page > TotalPages)
+					return;
+				ThisPage = page;
+				$("#image").html("<img src=\"userguide_page" + page + ".png\" width=\"100%\" />");
+			}
+			
+			function ToRealPage(i)
+			{
+				if (i == 1)
+					return "封面";
+				else if (i == 2)
+					return "目录";
+				else
+					return i - 2;
+			}
+			
+			$(document).ready(
+				function ()
+				{
+					var tmp, rnd, i;
+					rnd = Math.random();
+					tmp = "<table class=\"zbytable";
+					if (rnd < 0.333)
+						tmp += "1";
+					else if (rnd < 0.666)
+						tmp += "2";
+					else
+						tmp += "3";
+					tmp += "\" width=\"940\" cellspacing=\"1\"><tr><td width=\"70%\">";
+					for (i = 1; i <= TotalPages; i++)
+						tmp += "<a href=\"javascript:ShowPage(" + i + "\)\">" + ToRealPage(i) + "</a> ";
+					tmp +="</td><td width=\"30%\"><a href=\"javascript:ShowPage(ThisPage - 1)\">上一页</a> <a href=\"javascript:ShowPage(ThisPage + 1)\">下一页</a></td></tr></table>";
+					$("#pagelisthead").html(tmp);
+					$("#pagelistfoot").html(tmp);
+			
+					ShowPage(2);
+				}
+			);
+		</script>
+	</body>
+</html>
+

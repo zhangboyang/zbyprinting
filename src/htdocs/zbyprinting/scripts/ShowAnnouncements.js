@@ -1,5 +1,5 @@
 function ShowAnnouncements_PageReady()
 {
-	document.getElementById("button1").style.backgroundColor = "#92e4ff";
+	$("#button1").css("background-color", "#92e4ff");
 	CommonLib_RefreshTableStyle();
 }

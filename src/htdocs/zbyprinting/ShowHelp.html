@@ -1,53 +1,117 @@
 <table class="buttons">
 	<tr>
-		<td id="button1" onclick="ShowHelp_ShowUsage();">使用说明</td>
-		<td id="button2" onclick="ShowHelp_ShowAbout();">关于本站</td>
+		<td id="button1" onclick="ShowHelp_Toggle('button1');">使用说明</td>
+		<td id="button2" onclick="ShowHelp_Toggle('button2');">关于本站</td>
 	</tr>
 </table>
-<br>
+<br />
 
 <div id="usage" class="plaintext">
-	如果你有任何问题，请发邮件至 <a href="mailto:zbyprinting@126.com">zbyprinting@126.com</a>(邮箱)，我将尽力回答你的问题。
-	我是帮助我怕谁HAHA
+	<div class="subtitle">使用说明</div>
+	<table class="zbytable1" width="940" cellspacing="1">
+		<tr>
+			<th width="10%">格式</th>
+			<th width="10%">下载链接</th>
+			<th width="80%">详细信息</th>
+		</tr>
+		<tr>
+			<td>PDF</td>
+			<td><a href="/userguide/userguide.pdf" target="_blank">点此下载</a></td>
+			<td>PDF 格式，适合在装有 PDF 阅读器的电脑和便携式设备上阅读。</td>
+		</tr>
+		<tr>
+			<td>网页版</td>
+			<td><a href="/userguide/userguide.html" target="_blank">点此查看</a></td>
+			<td>网页版，适合在没有 PDF 阅读器的设备上阅读。</td>
+		</tr>
+		<tr>
+			<td>百度文库</td>
+			<td><a href="http://wenku.baidu.com/view/96ff912f4b73f242336c5f8f.html" target="_blank">点此查看</a></td>
+			<td>百度文库版，需要安装 Adobe Flash Player 才能查看。</td>
+		</tr>
+	</table>
+	
+	<br />
+	<div class="subtitle">打印店客户端软件</div>
+	<table class="zbytable3" width="940" cellspacing="1">
+		<tr>
+			<th width="10%">操作系统</th>
+			<th width="10%">下载链接</th>
+			<th width="80%">详细信息</th>
+		</tr>
+		<tr>
+			<td>Windows</td>
+			<td><a href="/installers/zbyprinting_v0.1_installer_win.bat" target="_blank">点此下载</a></td>
+			<td>适用于 Windows XP, Vista, 7, 8 操作系统。在安装过程中请让杀毒软件与防火墙允许安装程序修改您的系统。</td>
+		</tr>
+		<tr>
+			<td>Mac OS X</td>
+			<td><a href="/installers/zbyprinting_v0.1_installer_mac.pkg" target="_blank">点此下载</a></td>
+			<td>建议系统版本 Mac OS X Lion 及以上。</td>
+		</tr>
+		<tr>
+			<td>iOS</td>
+			<td>无需客户端</td>
+			<td>iPhone, iPad, iPod Touch 使用 AirPrint 技术打印，无须安装任何应用。请阅读使用说明了解使用 AirPrint 的方法。</td>
+		</tr>
+	</table>
 </div>
 
 <div id="about" class="plaintext">
 	<div class="subtitle">关于 Zby's Printing Service</div>
-	<br>
-	本网站由 Zby 编写，创建于 2012 年 5 月。本网站旨在为北大附中的学生提供便宜、方便、快捷的打印服务。<br>
-	Zby 的联系方式: <a href="http://zby.no-ip.org/wordpress" target="_blank">zby.no-ip.org/wordpress</a>(博客) <a href="mailto:zhangboyang.id@gmail.com">zhangboyang.id@gmail.com</a>(邮箱)<br>
-	<br>
-	
-	<div class="subtitle">技术信息</div>
-	<br>
-	本网站全部采用 AJAX 写成，服务端使用 Ubuntu + LAMP，打印服务器使用 CUPS。所有源代码采用 LGPL 授权发布，如需源代码，请使用 git 从下面的地址克隆。<br>
-	<a href="git://zby.no-ip.org/zbyprinting" target="_blank">git://zby.no-ip.org/zbyprinting</a><br>
-	<br>
-	
-	<div class="subtitle">版本历史</div>
 	<table class="zbytable1" width="940" cellspacing="1">
+		<tr>
+			<td width="100%">本网站由 Zby 编写，创建于 2012 年 5 月。本网站旨在为北大附中的学生提供便宜、方便、快捷的打印服务。</td>
+		</tr>
+		<tr>
+			<td>如果你有任何问题，请发邮件至 <a href="mailto:zbyprinting@126.com">zbyprinting@126.com</a>(邮箱)，我将尽力回答你的问题。</td>
+		</tr>
+		<tr>
+			<td>Zby 的联系方式: <a href="http://zby.no-ip.org/wordpress" target="_blank">zby.no-ip.org/wordpress</a>(博客) <a href="mailto:zhangboyang.id@gmail.com">zhangboyang.id@gmail.com</a>(邮箱)</td>
+		</tr>
+	</table>
+	
+	<br />
+	<div class="subtitle">技术信息</div>
+	<table class="zbytable2" width="940" cellspacing="1">
+		<tr>
+			<td width="100%">本网站全部采用 AJAX 技术写成，服务端使用 Ubuntu + Lighttpd + PHP(FastCGI) + MySQL，打印服务器使用 CUPS。</td>
+		</tr>
+		<tr>
+			<td>所有源代码采用 LGPL 授权发布，如需源代码，请使用 git 从<a href="git://zby.no-ip.org/zbyprinting" target="_blank">这里</a>克隆</td>
+		</tr>
+	</table>
+	
+	<br />
+	<div class="subtitle">版本历史</div>
+	<table class="zbytable3" width="940" cellspacing="1">
 		<tr>
 			<th width="10%">时间</th>
 			<th width="10%">版本号</th>
 			<th width="80%">详细信息</th>
 		</tr>
 		<tr>
-			<td>2011-09-01</td>
+			<td>2012-10-27</td>
+			<td>v0.1 unstable</td>
+			<td>不稳定版本。五单元测试版。</td>
+		</tr>
+		<tr>
+			<td>2012-09-01</td>
 			<td>v0.1 beta1</td>
 			<td>最终测试版。修改了一些 bug。</td>
 		</tr>
 		<tr>
-			<td>2011-08-19</td>
+			<td>2012-08-19</td>
 			<td>v0.1 alpha1</td>
 			<td>内部开发测试版。正式将工程迁移到 git。</td>
 		</tr>
 		<tr>
-			<td>2011-06-19</td>
+			<td>2012-06-19</td>
 			<td>v0.0.2</td>
 			<td>原来那台打印机坏了，我向我妈妈申请贷款买了 3 台，但仅有 1 台打印机投入使用，型号为 Lenovo LJ2600DT。</td>
 		</tr>
 		<tr>
-			<td>2011-06-11</td>
+			<td>2012-06-11</td>
 			<td>v0.0.1</td>
 			<td>最初的版本。仅有 1 台打印机，型号为 HP PSC 1218。</td>
 		</tr>
