@@ -1,6 +1,7 @@
 #!/bin/bash
 MYSQLUSER="root"
-MYSQLPASS="123456"
+MYSQLPASS=""
+# for example MYSQLPASS="-p123456"
 
 umask 0022
 
@@ -23,7 +24,7 @@ IP=$[(`echo ${IP} | cut -d. -f1`<<24)+(`echo ${IP} | cut -d. -f2`<<16)+(`echo ${
 
 if [[ `echo "${PDFINFO}" | grep "^Page size:.*(A4)$"` != "" ]]
 then 
-	ID=`mysql -u${MYSQLUSER} -p${MYSQLPASS} -Dzbyprinting -e "INSERT INTO jobs (realid, userid, ip, name, output, time, status, pages, duplex, fee) VALUES (${THISJOB}, 0, ${IP}, '${DOCTITLE}', 0, now(), 5, ${TOTALPAGES}, 0, 0);SELECT LAST_INSERT_ID();" | grep "^[0-9]*$"`
+	ID=`mysql -u${MYSQLUSER} ${MYSQLPASS} -Dzbyprinting -e "INSERT INTO jobs (realid, userid, ip, name, output, time, status, pages, duplex, fee) VALUES (${THISJOB}, 0, ${IP}, '${DOCTITLE}', 0, now(), 5, ${TOTALPAGES}, 0, 0);SELECT LAST_INSERT_ID();" | grep "^[0-9]*$"`
 	gs -q -dPARANOIDSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=0 -sDEVICE=pnggray -r300x300 -sOutputFile=${PDFNAME}_page%d.png ${PDFNAME}.pdf
 	FILELIST=`ls ${PDFNAME}_page*.png`
 	ANALYSIS_RESULT=`echo "${FILELIST}" | /usr/local/bin/zbyprinting-analysis-PNG`
@@ -37,7 +38,7 @@ then
 	done
 	MYSQLQUERY=`echo ${MYSQLQUERY} | sed "s/,$/;/g"`
 #	rm ${PDFNAME}_page*.png
-	mysql -u${MYSQLUSER} -p${MYSQLPASS} -Dzbyprinting -e "UPDATE jobs SET status = 1 WHERE id = ${ID};${MYSQLQUERY}"
+	mysql -u${MYSQLUSER} ${MYSQLPASS} -Dzbyprinting -e "UPDATE jobs SET status = 1 WHERE id = ${ID};${MYSQLQUERY}"
 else
-	mysql -u${MYSQLUSER} -p${MYSQLPASS} -Dzbyprinting -e "INSERT INTO jobs (realid, userid, ip, name, output, time, status, pages, duplex, fee) VALUES (0, 0, ${IP}, '${DOCTITLE}', 0, now(), 6, 0, 0, 0);"
+	mysql -u${MYSQLUSER} ${MYSQLPASS} -Dzbyprinting -e "INSERT INTO jobs (realid, userid, ip, name, output, time, status, pages, duplex, fee) VALUES (0, 0, ${IP}, '${DOCTITLE}', 0, now(), 6, 0, 0, 0);"
 fi
