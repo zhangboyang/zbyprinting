@@ -55,7 +55,7 @@
 						<array>
 							<true/>
 							<string></string>
-							<string>http://zby.pkuschool.edu.cn/zbyprinting</string>
+							<string>http://zby.pkuschool.edu.cn/zbyprinting/?ver=mac0.1.1</string>
 						</array>
 					</array>
 				</dict>
@@ -108,7 +108,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:554.000000</string>
+				<string>309.500000:552.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Get Specified URLs.action/Contents/Resources/zh_CN.lproj/main.nib</string>
 			</dict>
@@ -193,7 +193,7 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>6EA6F76F-BD58-4B87-8333-A7D07E5262C8</key>
+		<key>EA938C56-D01A-4630-A8BC-C67C22DB7FA1</key>
 		<dict>
 			<key>from</key>
 			<string>306C06BB-5B0C-4804-8465-06B5152A4515 - 306C06BB-5B0C-4804-8465-06B5152A4515</string>
