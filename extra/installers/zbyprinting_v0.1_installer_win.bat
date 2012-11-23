@@ -334,13 +334,13 @@ echo  ##   所有安装操作均已结束。                                               
 echo  ##                                                                          ##
 echo  ##   欢迎使用 石头、剪子、布打印店 的打印服务！                             ##
 echo  ##                                                                          ##
-echo  ##                                                                          ##
+echo  ##   ==== 按回车键退出 ====                                                 ##
 echo  ##                                                                          ##
 echo  ##                                                                          ##
 echo  ##                                                                          ##
 echo  ##   最低浏览器版本要求： Firefox 3.6.28, IE 6.0, Chrome 20                 ##
 echo  ##                                                                          ##
-echo  ##   推荐浏览器版本： Firefox 14.0.1, IE 8.0, Chrome 20 （或更高）          ##
+echo  ##   推荐浏览器版本： Firefox 17, IE 8.0, Chrome 20 （或更高）              ##
 echo  ##                                                                          ##
 echo  ##                                                                          ##
 echo  ##   为了最佳的浏览体验，推荐使用 Firefox 浏览器。                          ##
@@ -348,7 +348,7 @@ echo  ##                                                                        
 echo  ##############################################################################
 echo.
 call:waitforenter
-start http://%PRINTERADDR%/intro/firstrun
+start http://%PRINTERADDR%/intro/firstrun/?ver=win%INSTALLERVER%
 goto end
 
 rem #### Set zbyprinting as default printer ####
