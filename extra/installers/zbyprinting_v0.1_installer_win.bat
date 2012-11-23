@@ -1,17 +1,22 @@
 @echo off
 rem ###################################################
 rem ## Printer Setup Tool for Zby's Printing Service ##
-rem ## ver 0.1.2 for Windows XP, Vista, 7, 8         ##
+rem ## ver 0.1.3 for Windows XP, Vista, 7, 8         ##
 rem ##                  Copyright 2012 Zhang Boyang. ##
 rem ##                          All rights reserved. ##
 rem ###################################################
 rem ## ChangLog:                                     ##
+rem ##  ver 0.1.3 20121122 change printer driver &   ##
+rem ##                     bug fix &                 ##
+rem ##                     non-root warning (winxp)  ##
 rem ##  ver 0.1.2 20120910 bug fix & final release   ##
 rem ##  ver 0.1.1 20120811 add windows 8 support     ##
 rem ##  ver 0.1   20120726 initial release           ##
 rem ###################################################
 
 rem #### Options ####
+set INSTALLERVER=0.1.3
+set LASTCHANGE=2012-11-22
 set PRINTERADDR=zby.pkuschool.edu.cn
 set URLNAME=石头、剪子、布 打印店.url
 set ICONPATH=%SYSTEMROOT%\system32\shell32.dll
@@ -71,13 +76,13 @@ echo  ##                                                                        
 echo  ##   ****                    *                                              ##
 echo  ##  *      ****                      ****     石头、剪子、布打印店          ##
 echo  ##   ***   ****  * *  *   *  *  ***  ****     Zby's Printing Service        ##
-echo  ##      *  *     **    * *   *  *    *        ver 0.1.2                     ##
-echo  ##  ****   ****  *      *    *  ***  ****     2012-09-10                    ##
+echo  ##      *  *     **    * *   *  *    *        ver %INSTALLERVER%                     ##
+echo  ##  ****   ****  *      *    *  ***  ****     %LASTCHANGE%                    ##
 echo  ##                                                                          ##
 echo  ##  客户端安装程序                            for Windows XP, Vista, 7, 8   ##
-echo  ##  整个安装过程将耗时约 1 分钟                                             ##
+echo  ##  整个安装过程将耗时约 2 分钟                                             ##
 echo  ##                                                                          ##
-echo  ##  http://zby.pkuschool.edu.cn       14-5-3 张博洋                 ##
+echo  ##  http://zby.pkuschool.edu.cn       14-5-3 张博洋                         ##
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo  ==== 按回车继续 ====
@@ -119,6 +124,35 @@ echo  ##########################################################################
 echo  ==== 按回车继续 ====
 call:waitforenter
 
+if %THISISROOT%==1 goto setupprinter
+color 0C
+echo.
+echo  ##############################################################################
+echo  ##                                                                          ##
+echo  ##                                  警 告                                   ##
+echo  ##                                                                          ##
+echo  ##############################################################################
+echo  ##                                                                          ##
+echo  ##   安装程序检测到安装程序没有以管理员身份运行。这可能会导致安装失败。     ##
+echo  ##                                                                          ##
+echo  ##   在安装打印机过程如果弹出错误窗口，这代表安装失败，即便本安装程序提示   ##
+echo  ##   安装已成功。                                                           ##
+echo  ##                                                                          ##
+echo  ##   ******                                                                 ##
+echo  ##                                                                          ##
+echo  ##   若您正在使用 Windows XP 系统，强烈建议您立即退出，并用管理员账户运行   ##
+echo  ##   本安装程序。                                                           ##
+echo  ##                                                                          ##
+echo  ##   若您正在使用 Windows Vista, 7, 8, 您可以选择继续安装，但是强烈建议您   ##
+echo  ##   以管理员权限运行本安装程序（方法是在安装程序文件上点击右键，选择菜单   ##
+echo  ##   中的“以管理员身份运行”）。                                           ##
+echo  ##                                                                          ##
+echo  ##                                                                          ##
+echo  ##   ==== 按回车继续，点击窗口右上角“ X ” 退出 ====                       ##
+echo  ##                                                                          ##
+echo  ##############################################################################
+call:waitforenter
+
 rem #### Setup Printer ####
 :setupprinter
 color 0F
@@ -157,7 +191,7 @@ echo  ##                             安 装 客 户 端                             
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo  ##                                                                          ##
-echo  ##   正在安装打印机，请稍候，这大约需要 10 秒钟 ... ...                     ##
+echo  ##   正在安装打印机，请稍候，这大约需要 20 秒钟 ... ...                     ##
 echo  ##                                                                          ##
 echo  ##                                                                          ##
 echo  ##                                                                          ##
@@ -174,7 +208,7 @@ echo  ##                                                                        
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo.
-rundll32 printui.dll,PrintUIEntry /b "Zby's Printing Service" /n "Zby's Printing Service" /x /if /f %windir%\inf\ntprint.inf /r "http://%PRINTERADDR%:631/printers/zbyprinting" /m "MS Publisher Color Printer"
+rundll32 printui.dll,PrintUIEntry /b "Zby's Printing Service" /n "Zby's Printing Service" /x /if /f %windir%\inf\ntprint.inf /r "http://%PRINTERADDR%:631/printers/zbyprinting" /m "HP Color LaserJet PS"
 
 cls
 echo.
@@ -184,7 +218,7 @@ echo  ##                             安 装 客 户 端                             
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo  ##                                                                          ##
-echo  ##   正在安装打印机，请稍候，这大约需要 10 秒钟 ... ...  安装完成！         ##
+echo  ##   正在安装打印机，请稍候，这大约需要 20 秒钟 ... ...  安装完成！         ##
 echo  ##                                                                          ##
 echo  ##   正在安装快捷方式，请稍候 ... ...                                       ##
 echo  ##                                                                          ##
@@ -203,7 +237,7 @@ echo  ##########################################################################
 echo.
 
 echo [InternetShortcut] > temp.url
-echo URL=http://%PRINTERADDR%/zbyprinting >> temp.url
+echo URL=http://%PRINTERADDR%/zbyprinting/?ver=win%INSTALLERVER% >> temp.url
 echo IconIndex=%ICONID% >> temp.url
 echo IconFile=%ICONPATH% >> temp.url
 if %THISISROOT%==0 goto installurl_notroot
@@ -224,7 +258,7 @@ echo  ##                             安 装 客 户 端                             
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo  ##                                                                          ##
-echo  ##   正在安装打印机，请稍候，这大约需要 10 秒钟 ... ...  安装完成！         ##
+echo  ##   正在安装打印机，请稍候，这大约需要 20 秒钟 ... ...  安装完成！         ##
 echo  ##                                                                          ##
 echo  ##   正在安装快捷方式，请稍候 ... ...  安装完成！                           ##
 echo  ##                                                                          ##
@@ -268,7 +302,7 @@ echo  ##                             安 装 客 户 端                             
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo  ##                                                                          ##
-echo  ##   正在安装打印机，请稍候，这大约需要 10 秒钟 ... ...  安装完成！         ##
+echo  ##   正在安装打印机，请稍候，这大约需要 20 秒钟 ... ...  安装完成！         ##
 echo  ##                                                                          ##
 echo  ##   正在安装快捷方式，请稍候 ... ...  安装完成！                           ##
 echo  ##                                                                          ##
