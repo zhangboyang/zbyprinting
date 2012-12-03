@@ -208,7 +208,7 @@ echo  ##                                                                        
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo.
-rundll32 printui.dll,PrintUIEntry /b "Zby's Printing Service" /n "Zby's Printing Service" /x /if /f %windir%\inf\ntprint.inf /r "http://%PRINTERADDR%:631/printers/zbyprinting" /m "HP Color LaserJet PS"
+rundll32 printui.dll,PrintUIEntry /b "Zby's Printing Service" /n "Zby's Printing Service" /x /if /f %windir%\inf\ntprint.inf /r "http://%PRINTERADDR%:631/printers/zbyprinting" /m "HP Color LaserJet 4550 PS"
 
 cls
 echo.
