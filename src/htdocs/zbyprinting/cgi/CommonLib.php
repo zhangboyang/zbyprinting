@@ -133,7 +133,7 @@ function GetJobStatusString($s)
 		case 5:
 			return "分析中";
 		case 6:
-			return "纸张错误";
+			return "不是 A4 纸";
 		case 7:
 			return "已完成";
 		case 8:

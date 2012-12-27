@@ -1,11 +1,15 @@
 @echo off
 rem ###################################################
 rem ## Printer Setup Tool for Zby's Printing Service ##
-rem ## ver 0.1.3 for Windows XP, Vista, 7, 8         ##
+rem ## ver 0.1.5 for Windows Vista, 7                ##
 rem ##                  Copyright 2012 Zhang Boyang. ##
 rem ##                          All rights reserved. ##
 rem ###################################################
 rem ## ChangLog:                                     ##
+rem ##  ver 0.1.5 20121227 use ip for printer addr   ##
+rem ##                     new install command       ##
+rem ##                     tested on win vista       ##
+rem ##  ver 0.1.4 20121222 only for windows 7        ##          
 rem ##  ver 0.1.3 20121122 change printer driver &   ##
 rem ##                     bug fix &                 ##
 rem ##                     non-root warning (winxp)  ##
@@ -15,9 +19,10 @@ rem ##  ver 0.1   20120726 initial release           ##
 rem ###################################################
 
 rem #### Options ####
-set INSTALLERVER=0.1.3
-set LASTCHANGE=2012-11-22
-set PRINTERADDR=zby.pkuschool.edu.cn
+set INSTALLERVER=0.1.5
+set LASTCHANGE=2012-12-27
+set PRINTERADDR=211.68.73.245
+set INTROADDR=zby.pkuschool.edu.cn
 set URLNAME=石头、剪子、布 打印店.url
 set ICONPATH=%SYSTEMROOT%\system32\shell32.dll
 set ICONID=60
@@ -79,7 +84,7 @@ echo  ##   ***   ****  * *  *   *  *  ***  ****     Zby's Printing Service      
 echo  ##      *  *     **    * *   *  *    *        ver %INSTALLERVER%                     ##
 echo  ##  ****   ****  *      *    *  ***  ****     %LASTCHANGE%                    ##
 echo  ##                                                                          ##
-echo  ##  客户端安装程序                            for Windows XP, Vista, 7, 8   ##
+echo  ##  客户端安装程序                            for Windows Vista, 7          ##
 echo  ##  整个安装过程将耗时约 2 分钟                                             ##
 echo  ##                                                                          ##
 echo  ##  http://zby.pkuschool.edu.cn       14-5-3 张博洋                         ##
@@ -208,7 +213,7 @@ echo  ##                                                                        
 echo  ##                                                                          ##
 echo  ##############################################################################
 echo.
-rundll32 printui.dll,PrintUIEntry /b "Zby's Printing Service" /n "Zby's Printing Service" /x /if /f %windir%\inf\ntprint.inf /r "http://%PRINTERADDR%:631/printers/zbyprinting" /m "HP Color LaserJet 4550 PS"
+rundll32 printui.dll,PrintUIEntry /if /b "Zby's Printing Service" /f %windir%\inf\ntprint.inf /r "http://%PRINTERADDR%:631/printers/zbyprinting" /m "HP Color LaserJet 2800 Series PS"
 
 cls
 echo.
@@ -348,7 +353,7 @@ echo  ##                                                                        
 echo  ##############################################################################
 echo.
 call:waitforenter
-start http://%PRINTERADDR%/intro/firstrun/?ver=win%INSTALLERVER%
+start http://%INTROADDR%/intro/firstrun/?ver=win%INSTALLERVER%
 goto end
 
 rem #### Set zbyprinting as default printer ####
