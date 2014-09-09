@@ -21,7 +21,7 @@ rem #### Options ####
 set INSTALLERVER=0.1.5
 set LASTCHANGE=2012-12-27
 set PRINTERADDR=211.68.73.245
-set INTROADDR=zby.pkuschool.edu.cn
+set WEBADDR=zby.pkuschool.edu.cn
 set URLNAME=石头、剪子、布 打印店.url
 set ICONPATH=%SYSTEMROOT%\system32\shell32.dll
 set ICONID=60
@@ -241,7 +241,7 @@ echo  ##########################################################################
 echo.
 
 echo [InternetShortcut] > temp.url
-echo URL=http://%PRINTERADDR%/zbyprinting/?ver=win%INSTALLERVER% >> temp.url
+echo URL=http://%WEBADDR%/zbyprinting/?ver=win%INSTALLERVER% >> temp.url
 echo IconIndex=%ICONID% >> temp.url
 echo IconFile=%ICONPATH% >> temp.url
 if %THISISROOT%==0 goto installurl_notroot
@@ -352,7 +352,7 @@ echo  ##                                                                        
 echo  ##############################################################################
 echo.
 call:waitforenter
-start http://%INTROADDR%/intro/firstrun/?ver=win%INSTALLERVER%
+start http://%WEBADDR%/intro/firstrun/?ver=win%INSTALLERVER%
 goto end
 
 rem #### Set zbyprinting as default printer ####
